@@ -1,6 +1,7 @@
 Supplementary material to "Local influence for the concordance correlation coefficient" by Carla Leal, Manuel Galea and Felipe Osorio
 
 Code written by: Carla Leal and Felipe Osorio
+
 Correspondence author: Felipe Osorio, Email: felipe.osorios@usm.cl
 
 Code tested on:
