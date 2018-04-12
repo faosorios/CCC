@@ -1,6 +1,6 @@
 ## Id: ccc.influence.R
 ## Author: originally coded by Carla Leal, with contributions of Felipe Osorio
-## Last update: 2018-04-09
+## Last update: 2018-04-12
 
 influence.ccc <- function(object, method = "FI")
 { ## influence measures for the concordance correlation coefficient
@@ -60,7 +60,7 @@ plot.influence.ccc <- function(x, idn = 3, main = "")
   else {
     idn <- as.integer(idn)
     if(idn < 0 || idn > n)
-    stop(paste("`id.n' must be in { 1,..,",n,"}"))
+    stop(paste("`idn' must be in { 1,..,",n,"}"))
   }
   if(idn > 0) {
     idx  <- 1:idn
