@@ -32,7 +32,7 @@ influence.ccc <- function(object, method = "FI")
            scaling <- sqrt(sum(diag(crossprod(hess)))) * (diag(n) + outer(grad, grad))
            curv <- solve(scaling, derv$hessian)
          },
-         stop("method = ", method, " is not implemented.")
+         stop("method =", method, " is not implemented.")
         )
 
   ## compute largest eigenvectors and create the output object
@@ -60,7 +60,7 @@ plot.influence.ccc <- function(x, idn = 3, main = "")
   else {
     idn <- as.integer(idn)
     if(idn < 0 || idn > n)
-    stop(paste("`idn' must be in { 1,..,",n,"}"))
+    stop(paste("`id.n' must be in { 1,..,",n,"}"))
   }
   if(idn > 0) {
     idx  <- 1:idn
@@ -119,9 +119,9 @@ derivatives.ccc <- function(object, which =  1:2)
 
   ## computation of 2nd order derivatives of CCC
   rel  <- rhoc^2 / sigma12
-  z11  <- sigma11^2 * outer(ones, ones)  - outer(ones, z1 * z1) - outer(z1, z1)
-  z12  <- sigma12^2 * outer(ones, ones)  - outer(ones, z1 * z2) - outer(z1, z2)
-  z22  <- sigma22^2 * outer(ones, ones)  - outer(ones, z2 * z2) - outer(z2, z2)
+  z11  <- sigma11^2 * outer(ones, ones) - outer(ones, z1 * z1) - outer(z1, z1)
+  z12  <- sigma12^2 * outer(ones, ones) - outer(ones, z1 * z2) - outer(z1, z2)
+  z22  <- sigma22^2 * outer(ones, ones) - outer(ones, z2 * z2) - outer(z2, z2)
   term1 <- outer(grad / sigma12 - rel^2 * s12 / n, (s11 + s22) / n) + rel * (z11 + z22) / n^2
   term2 <- rel * (outer(z1 - z2, z1 - z2) - (n + 1) * diff * outer(z1 - z2, ones)) / n^2
   term3 <- 2 * rel * z12 / n^2 - .5 * rel * outer(s11 + s22 + 2 * diff * (z1 - z2), s12) / (sigma12 * n^2)

@@ -1,6 +1,6 @@
 ## Id: ccc.R
 ## Author: Felipe Osorio
-## Last update: 2018-04-05
+## Last update: 2018-04-04
 
 fit.ccc <-
 function(x, data, subset, na.action)
@@ -76,8 +76,8 @@ function(x, digits = 4, ...)
 {
   cat("Call:\n")
   dput(x$call, control = NULL)
-  cf <- matrix(c(x$ccc, x$var.ccc, x$z, x$var.z), ncol = 2)
-  dimnames(cf) <- list(c("estimate","variance"), c("concordance","z-transform"))
+  cf <- c(x$ccc, x$var.ccc, x$accuracy, x$precision)
+  names(cf) <- c("estimate","variance","accuracy","precision")
   cat("\nCoefficients:\n ")
   print(format(round(cf, digits = digits)), quote = F, ...)
   invisible(x)
@@ -104,7 +104,8 @@ confint.ccc <- function(object, method = "z-transform", level = 0.95)
            cf <- object$ccc
            SE <- z2rho(SE)
            ci <- z2rho(ci)
-         })
+         },
+         stop("method = ", method, " is not implemented."))
   ci <- cbind(cf, SE, ci)
   dimnames(ci) <- list(cname, c("parameter", "SE", "lower", "upper"))
   ci
