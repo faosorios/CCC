@@ -1,21 +1,21 @@
 ## Id: ccc.influence.R
 ## Author: originally coded by Carla Leal, with contributions of Felipe Osorio
-## Last update: 2018-04-12
+## Last update: 2018-04-20
 
 influence.ccc <- function(object, method = "FI")
 { ## influence measures for the concordance correlation coefficient
+  Call <- match.call()
+  is.first <- FALSE
+
   switch(method,
          "FI" = { # first-order influence measure
            grad <- derivatives.ccc(object, which = 1)
-           curv <- outer(grad, grad)
+           hmax <- grad / sqrt(sum(grad^2))
+           is.first <- TRUE
          },
          "SI" = { # second-order influence measure
            derv <- derivatives.ccc(object, which = 1:2)
            curv <- derv$hessian + diag(derv$gradient)
-         },
-         "CF" = { # maximum slope influence measure
-           grad <- derivatives.ccc(object, which = 1)
-           hmax <- grad / sqrt(sum(grad^2))
          },
          "normal" = { # normal curvature
            derv <- derivatives.ccc(object, which = 1:2)
@@ -30,23 +30,50 @@ influence.ccc <- function(object, method = "FI")
            hess <- derv$hessian
            n <- length(grad)
            scaling <- sqrt(sum(diag(crossprod(hess)))) * (diag(n) + outer(grad, grad))
-           curv <- solve(scaling, derv$hessian)
+           curv <- solve(scaling, hess)
          },
          stop("method =", method, " is not implemented.")
         )
 
   ## compute largest eigenvectors and create the output object
-  if (method != "CF") {
+  if (!is.first) {
     rs <- svd(curv, nv = 0)
     which <- abs(rs$d) < .Machine$double.eps
     hmax  <- rs$u[,1]
-    total <- diag(curv)
-    out <- list(hmax = hmax, total = total, vectors = rs$u[,!which])
+    out <- list(hmax = hmax, vectors = rs$u[,!which])
   } else
     out <- list(hmax = hmax, gradient = grad)
 
+  out$call <- Call
   class(out) <- "influence.ccc"
   out
+}
+
+print.influence.ccc <- function(x, idn = 3, ...)
+{ # print influential observations
+  cat("Call:\n")
+  dput(x$call, control = NULL)
+  hmax <- abs(x$hmax)
+  cutoff <- mean(hmax) + 2 * sd(hmax)
+  n <- length(hmax)
+  cat("\nCutoff:", format(cutoff))
+
+  if (is.null(idn))
+    idn <- 0
+  else {
+    idn <- as.integer(idn)
+    if(idn < 0 || idn > n)
+    stop(paste("`idn' must be in { 1,..,",n,"}"))
+  }
+  if(idn > 0) {
+    idx   <- 1:idn
+    show  <- order(-hmax)[idx]
+    show  <- intersect(show, (1:n)[hmax > cutoff])
+    which <- 1:n
+    cat("\nInfluential observations:\n")
+    print(order(which[show]))
+  }
+  invisible(x)
 }
 
 plot.influence.ccc <- function(x, idn = 3, main = "")
@@ -120,7 +147,7 @@ derivatives.ccc <- function(object, which =  1:2)
   ## computation of 2nd order derivatives of CCC
   rel  <- rhoc^2 / sigma12
   z11  <- sigma11^2 * outer(ones, ones) - outer(ones, z1 * z1) - outer(z1, z1)
-  z12  <- sigma12^2 * outer(ones, ones) - outer(ones, z1 * z2) - outer(z1, z2)
+  z12  <- sigma12 * outer(ones, ones) - outer(ones, z1 * z2) - outer(z1, z2)
   z22  <- sigma22^2 * outer(ones, ones) - outer(ones, z2 * z2) - outer(z2, z2)
   term1 <- outer(grad / sigma12 - rel^2 * s12 / n, (s11 + s22) / n) + rel * (z11 + z22) / n^2
   term2 <- rel * (outer(z1 - z2, z1 - z2) - (n + 1) * diff * outer(z1 - z2, ones)) / n^2

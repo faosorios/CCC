@@ -1,6 +1,6 @@
 ## Id: ccc.R
 ## Author: Felipe Osorio
-## Last update: 2018-04-12
+## Last update: 2018-04-20
 
 fit.ccc <-
 function(x, data, subset, na.action)
@@ -101,7 +101,7 @@ confint.ccc <- function(object, method = "z-transform", level = 0.95)
            cf <- object$z
            SE <- sqrt(object$var.z)
            ci <- cf + SE %o% qz
-           cf <- object$ccc
+           cf <- z2rho(cf)
            SE <- z2rho(SE)
            ci <- z2rho(ci)
          },
