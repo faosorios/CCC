@@ -74,28 +74,3 @@ plot(z)
 # Fig 5.d
 z  <- influence.ccc(fm, method = "SI")
 plot(z)
-
-## Fig 6
-nobs <- 100 # nrow(x)
-rhoc <- rep(0, nobs)
-accu <- rep(0, nobs)
-r    <- rep(0, nobs)
-for (i in 1:nobs) {
-  f0 <- fit.ccc(x, subset = -i)
-  rhoc[i] <- f0$ccc
-  accu[i] <- f0$accuracy
-  r[i]    <- f0$precision
-}
-par(mfrow = c(3,1))
-plot(rhoc, type = "b", ylim = c(.935,.965), ylab = "CCC estimate")
-abline(h = fm$ccc, col = "red", lty = 2, lwd = 2)
-text(1, rhoc[1], as.character(1), pos = 3)
-plot(accu, type = "b", ylim = c(.9991,1), ylab = "accuracy estimate")
-abline(h = fm$accuracy, col = "red", lty = 2, lwd = 2)
-obs <- c(15,46)
-text(obs, accu[obs], as.character(obs), pos = 1)
-obs <- c(27,60)
-text(obs, accu[obs], as.character(obs), pos = 3)
-plot(r, type = "b", ylim = c(.935,.965), ylab = "precision estimate")
-abline(h = fm$precision, col = "red", lty = 2, lwd = 2)
-text(1, r[1], as.character(1), pos = 3)
