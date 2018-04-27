@@ -67,11 +67,10 @@ print.influence.ccc <- function(x, idn = 3, ...)
   }
   if(idn > 0) {
     idx   <- 1:idn
-    show  <- order(-hmax)[idx]
+    show  <- order(hmax, decreasing = TRUE)[idx]
     show  <- intersect(show, (1:n)[hmax > cutoff])
-    which <- 1:n
     cat("\nInfluential observations:\n")
-    print(order(which[show]))
+    print(sort(show))
   }
   invisible(x)
 }
