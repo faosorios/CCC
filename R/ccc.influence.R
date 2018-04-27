@@ -1,6 +1,6 @@
 ## Id: ccc.influence.R
 ## Author: originally coded by Carla Leal, with contributions of Felipe Osorio
-## Last update: 2018-04-20
+## Last update: 2018-04-27
 
 influence.ccc <- function(object, method = "FI")
 { ## influence measures for the concordance correlation coefficient
