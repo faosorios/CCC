@@ -12,3 +12,13 @@ Code tested on:
 Attached base packages: stats, graphics, grDevices, utils, datasets, methods, base
 
 Other attached packages: heavy_0.38.19
+
+INSTRUCTIONS:
+
+- case study (transient sleep disorder): copy files 'ccc.R', 'ccc.influence.R' and
+  'PSG.rda' (from data directory) to 'case_study' directory. Then run the R commands
+  described at 'case_study.R' file.
+
+- simulation study (Section 4 from manuscript): copy files 'ccc.R' and 'ccc.influence.R'
+  to 'simulation' directory. Then run the R commands described at 'simulation.R' file
+  ('heavy' library is required).
