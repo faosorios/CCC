@@ -13,12 +13,16 @@ Attached base packages: stats, graphics, grDevices, utils, datasets, methods, ba
 
 Other attached packages: heavy_0.38.19
 
-INSTRUCTIONS:
-
-- case study (transient sleep disorder): copy files 'ccc.R', 'ccc.influence.R' and
-  'PSG.rda' (from data directory) to 'case_study' directory. Then run the R commands
-  described at 'case_study.R' file.
-
-- simulation study (Section 4 from manuscript): copy files 'ccc.R' and 'ccc.influence.R'
-  to 'simulation' directory. Then run the R commands described at 'simulation.R' file
-  ('heavy' library is required).
+CONTENTS:
+- case_study/case_study.R: R commands for the analysis of transient sleep disorder
+  dataset (described/analyzed at Sections 2.1 and 5 from manuscript).
+- code/ccc.influence.R: R functions to compute influence measures for the CCC.
+- code/ccc.R: R functions for estimation and confidence intervals for the CCC.
+- data/PSG.rda: clinical trial on transient sleep disorder dataset.
+- simulation/ccc.simul.R: R funtion to compute the outlier detection percentage using
+  different influence measures (Section 4 from manuscript).
+- simulation/simulation.R: R commands to perform the simulation study described at
+  Section 4 from manuscript.
+- ccc-manual.pdf: reference manual describing the functions included in files 'ccc.R'
+  and 'ccc.influence.R'.
+- README.txt: this file.
