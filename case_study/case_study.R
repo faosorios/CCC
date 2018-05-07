@@ -1,7 +1,7 @@
-## loading dataset and reading R code (files must be at the working directory)
-load("PSG.rda")
-source("ccc.R")
-source("ccc.influence.R")
+## loading dataset and reading R sources
+load("../data/PSG.rda")
+source("../code/ccc.R")
+source("../code/ccc.influence.R")
 
 ## Fig 1
 #pdf(width = 10)
