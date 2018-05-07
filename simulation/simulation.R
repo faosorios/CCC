@@ -1,6 +1,6 @@
-## reading R codes (files must be at the working directory)
-source("ccc.R")
-source("ccc.influence.R")
+## reading R sources
+source("../code/ccc.R")
+source("../code/ccc.influence.R")
 source("ccc.simul.R")
 
 ## load 'heavy' package required to simulate multivariate normal deviates
