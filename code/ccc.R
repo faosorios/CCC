@@ -1,6 +1,5 @@
-## Id: ccc.R
+## $ID: ccc.R, last updated 2018/04/20
 ## Author: Felipe Osorio
-## Last update: 2018-04-20
 
 fit.ccc <-
 function(x, data, subset, na.action)
