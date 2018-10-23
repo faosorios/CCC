@@ -1,7 +1,7 @@
 ## Id: ccc.simul.R, last updated 2018/04/20
 ## Author: originally coded by Carla Leal, with contributions of Felipe Osorio
 
-simul.ccc <- function(Nsize = 500, nobs = 100, mean, Sigma, delta = 3)
+simul2points.poa <- function(Nsize = 500, nobs = 100, mean, Sigma, delta = 3)
 { ## function to perform the simulation experiment (Section 4 of the manuscript)
   ok <- matrix(FALSE, nrow = Nsize, ncol = 5) # results container
   cutoff <- rep(0, 4)
@@ -10,32 +10,35 @@ simul.ccc <- function(Nsize = 500, nobs = 100, mean, Sigma, delta = 3)
   # Monte Carlo iterations
   for (i in 1:Nsize) {
     x <- rmnorm(n = nobs, mean = mean, Sigma = Sigma)
-    # introducing an outlier to 2nd instrument
-    x[1,2] <- x[1,2] + delta
+    # introducing two outliers to the 2nd instrument
+    x[1,2]  <- x[1,2]  + delta
+    x[10,2] <- x[10,2] + delta
     # fitting postulated model and computing influence measures
     fm <- fit.ccc(x)
     # normal curvature
-    z <- influence.ccc(fm, method = "normal")
+    z <- influence.poa(fm, method = "normal")
     hmax <- abs(z$hmax)
     cutoff[1] <- mean(hmax) + 2 * sd(hmax)
-    ok[i,1] <- hmax[1] > cutoff[1]
+    ok[i,1] <- (hmax[1] > cutoff[1]) && (hmax[10] > cutoff[1])
     # conformal curvature
-    z <- influence.ccc(fm, method = "conformal")
+    z <- influence.poa(fm, method = "conformal")
     hmax <- abs(z$hmax)
     cutoff[2] <- mean(hmax) + 2 * sd(hmax)
-    ok[i,2] <- hmax[1] > cutoff[2]
+    ok[i,2] <- (hmax[1] > cutoff[2]) && (hmax[10] > cutoff[2])
     # FI measure
-    z <- influence.ccc(fm, method = "FI")
+    z <- influence.poa(fm, method = "FI")
     hmax1 <- abs(z$hmax)
     cutoff[3] <- mean(hmax1) + 2 * sd(hmax1)
-    ok[i,3] <- hmax1[1] > cutoff[3]
+    ok[i,3] <- (hmax1[1] > cutoff[3]) && (hmax1[10] > cutoff[3])
     # SI measure
-    z <- influence.ccc(fm, method = "conformal")
+    z <- influence.poa(fm, method = "conformal")
     hmax2 <- abs(z$hmax)
     cutoff[4] <- mean(hmax2) + 2 * sd(hmax2)
-    ok[i,4] <- hmax2[1] > cutoff[4]
+    ok[i,4] <- (hmax2[1] > cutoff[4]) && (hmax2[10] > cutoff[4])
     # FI & SI measures
-    ok[i,5] <- (hmax1[1] > cutoff[3]) && (hmax2[1] > cutoff[4])
+    FI <- (hmax1[1] > cutoff[3]) && (hmax1[10] > cutoff[3])
+    SI <- (hmax2[1] > cutoff[4]) && (hmax2[10] > cutoff[4])
+    ok[i,5] <- FI && SI
   }
 
   mnames <- c("C","B","FI","SI","both")
