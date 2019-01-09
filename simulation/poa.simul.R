@@ -1,4 +1,4 @@
-## Id: poa.simul.R, last updated 2018/04/20
+## Id: poa.simul.R, last updated 2019/01/07
 ## Author: Felipe Osorio
 
 simul.poa <- function(Nsize = 500, nobs = 100, mean, Sigma, delta = 3)
@@ -44,5 +44,28 @@ simul.poa <- function(Nsize = 500, nobs = 100, mean, Sigma, delta = 3)
   names(cutoff) <- mnames[1:4]
   speed <- proc.time() - now
   out <- list(percentage = 100 * percentage, cutoffs = cutoff, speed = speed, x = x, hmax = hmax)
+  out
+}
+
+summary.poa <- function(Nsize = 500, nobs = 100, mean, Sigma) {
+  out <- matrix(0, nrow = 5, ncol = 7)
+
+  set.seed(5)
+  out[,1] <- simul.poa(Nsize, nobs, mean, Sigma, delta = 0.5)$percentage
+  set.seed(23)
+  out[,2] <- simul.poa(Nsize, nobs, mean, Sigma, delta = 1.0)$percentage
+  set.seed(53)
+  out[,3] <- simul.poa(Nsize, nobs, mean, Sigma, delta = 1.5)$percentage
+  set.seed(167)
+  out[,4] <- simul.poa(Nsize, nobs, mean, Sigma, delta = 2.0)$percentage
+  set.seed(239)
+  out[,5] <- simul.poa(Nsize, nobs, mean, Sigma, delta = 2.5)$percentage
+  set.seed(347)
+  out[,6] <- simul.poa(Nsize, nobs, mean, Sigma, delta = 3.0)$percentage
+  set.seed(433)
+  out[,7] <- simul.poa(Nsize, nobs, mean, Sigma, delta = 3.0)$percentage
+
+  rownames(out) <- c("C","B","FI","SI","both")
+  colnames(out) <- c("0.5","1.0","1.5","2.0","2.5","3.0","3.5")
   out
 }
