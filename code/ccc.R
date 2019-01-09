@@ -1,4 +1,4 @@
-## $ID: ccc.R, last updated 2018/04/20
+## $ID: ccc.R, last updated 2019/01/09
 ## Author: Felipe Osorio
 
 fit.ccc <-
@@ -46,6 +46,13 @@ function(x, data, subset, na.action)
   mu   <- as.vector(xbar)
   phi  <- xcov[lower.tri(xcov, diag = TRUE)]
 
+  ## computing log-likelihood and AIC
+  u  <- chol(xcov)
+  D2 <- mahalanobis(z, center = xbar, cov = xcov)
+  logLik <- -0.5 * n * p * log(2 * pi) - n * sum(log(diag(u))) - 0.5 * sum(D2)
+  npars  <- p * (p + 3) / 2
+  AIC <- -2.0 * logLik + 2.0 * npars
+
   ## computing CCC
   diff  <- mu[1] - mu[2]
   ratio <- phi[1] / phi[3]
@@ -65,7 +72,7 @@ function(x, data, subset, na.action)
   ## creating the output object
   out <- list(call = Call, x = z, dims = dz, xbar = xbar, S = xcov, phi = phi,
               ccc = rhoc, var.ccc = var.rhoc, accuracy = accu, precision = r,
-              z = atanh(rhoc), var.z = var.z)
+              z = atanh(rhoc), var.z = var.z, logLik = logLik, AIC = AIC)
   class(out) <- "ccc"
   out
 }
