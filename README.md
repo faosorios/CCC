@@ -27,8 +27,12 @@ CONTENTS:
   different influence measures: probability of agreement as objective function.
 - simulation/simulation.R: R commands to perform the simulation study described at
   Section 4 from manuscript.
-- simulation/ccc.simul2points.R and poa.simul2points.R: R functions to compute the outlier
-  detection percentage using different influence measures (see Supplementary material)
+- supplement/ccc.2points.R: R functions to compute the outlier detection percentage
+  using CCC as objective function (see Supplementary material).
+- supplement/poa.2points.R: R functions to compute the outlier detection percentage
+  using the probability of agreement as objective function (see Supplementary material).
+- supplement/additional.simul.R: R commands to perform the additional simulation experiment
+  described in the Supplementary material.
 - ccc-manual.pdf: reference manual describing the functions included in files 'ccc.R',
   'poa.R', 'ccc.influence.R' and 'poa.influence.R'
 - README.txt: this file.
