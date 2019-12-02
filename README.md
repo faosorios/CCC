@@ -1,4 +1,4 @@
-Supplementary material to "Assessment of local influence for the analysis of agreement" by Carla Leal, Manuel Galea and Felipe Osorio (doi: https://doi.org/10.1002/bimj.201800124)
+Supplementary material to **Assessment of local influence for the analysis of agreement** by Carla Leal, Manuel Galea and Felipe Osorio (doi: https://doi.org/10.1002/bimj.201800124)
 
 Code written by: Carla Leal and Felipe Osorio
 
