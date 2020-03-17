@@ -1,4 +1,5 @@
-[![DOI](https://img.shields.io/badge/DOI-10.1002%2bimj.201800124-blue)](http://doi.org/10.1002/bimj.201800124)
+[![DOI](https://img.shields.io/badge/DOI-10.1002/bimj.201800124-blue)](http://doi.org/10.1002/bimj.201800124)
+
 Supplementary material to **Assessment of local influence for the analysis of agreement** by Carla Leal, Manuel Galea and Felipe Osorio (Biometrical Journal 61 (4), 955-972. DOI: [10.1002/bimj.20180012](https://doi.org/10.1002/bimj.201800124))
 
 Code written by: Carla Leal and Felipe Osorio
