@@ -1,3 +1,5 @@
+# Local influence for the analysis of agreement
+
 [![R](https://img.shields.io/badge/Made%20with-R%20under%20development-success)](https://cran.r-project.org/)
 [![heavy](https://img.shields.io/badge/Using%20heavy-0.38.19-important)](https://cran.r-project.org/package=heavy)
 [![DOI](https://img.shields.io/badge/DOI-10.1002/bimj.201800124-blue)](http://doi.org/10.1002/bimj.201800124)
