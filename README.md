@@ -41,4 +41,4 @@ CONTENTS:
   described in the Supplementary material.
 - ccc-manual.pdf: reference manual describing the functions included in files 'ccc.R',
   'poa.R', 'ccc.influence.R' and 'poa.influence.R'
-- README.txt: this file.
+- README.md: this file.
