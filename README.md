@@ -17,7 +17,7 @@ Code tested on:
 
 Attached base packages: stats, graphics, grDevices, utils, datasets, methods, base
 
-Other attached packages: heavy_0.38.19
+Other attached packages (updated): fastmatrix-0.4-1245
 
 CONTENTS:
 - case_study/case_study.R: R commands for the analysis of transient sleep disorder
